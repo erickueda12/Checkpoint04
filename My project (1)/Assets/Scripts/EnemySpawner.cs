@@ -2,15 +2,37 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] Transform[] spawnPoints;
+
+    [SerializeField] float spawnInterval = 2f;
+
+    float spawnTimer;
+
+    private void Update()
     {
-        
+        if (GameManager.Instance.machine.CurrentState != GameManager.Instance.playingState)
+            return;
+
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer >= spawnInterval)
+        {
+            SpawnEnemy();
+            spawnTimer = 0f;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SpawnEnemy()
     {
-        
+        int randomIndex = Random.Range(0, spawnPoints.Length);
+
+        Transform spawnPoint = spawnPoints[randomIndex];
+
+        Instantiate(
+            enemyPrefab,
+            spawnPoint.position,
+            spawnPoint.rotation
+        );
     }
 }

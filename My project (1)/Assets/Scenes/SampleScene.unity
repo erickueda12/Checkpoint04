@@ -383,7 +383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &278383809
 RectTransform:
   m_ObjectHideFlags: 0
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -613,6 +613,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d277be3a436e54ba98bc25cde81192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameHUD
+  hudPanel: {fileID: 278383808}
+  scoreText: {fileID: 261027760}
+  livesText: {fileID: 1166065431}
+  timerText: {fileID: 578215028}
+  gameOverPanel: {fileID: 581411875}
+  resultText: {fileID: 1772387345}
+  finalScoreText: {fileID: 1608978145}
 --- !u!114 &370412578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,6 +1107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2524b35284af03546836bb7665525cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolManager
+  bulletPrefab: {fileID: 731027340169366301, guid: 580fc06b8263042438f5d72eef3d3437, type: 3}
+  amount: 20
 --- !u!4 &793050817
 Transform:
   m_ObjectHideFlags: 0
@@ -1224,6 +1233,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd61e2895a8bcae4190c0cebbf3742d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManger
+  score: 0
+  lives: 3
+  gameTime: 60
+  currentTime: 0
 --- !u!4 &1153975838
 Transform:
   m_ObjectHideFlags: 0
@@ -1458,7 +1471,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1203305787}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 370412577}
+        m_TargetAssemblyTypeName: GameHUD, Assembly-CSharp
+        m_MethodName: RestartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1203305787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1866,6 +1891,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68d383921884ba41b292f517a096535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  enemyPrefab: {fileID: 6578737105108677850, guid: 74a80a030df029e48b9cd338ef697ba1, type: 3}
+  spawnPoints:
+  - {fileID: 443080610}
+  - {fileID: 1302015075}
+  - {fileID: 2028299298}
+  - {fileID: 98403258}
+  spawnInterval: 2
 --- !u!4 &1645105184
 Transform:
   m_ObjectHideFlags: 0
@@ -2084,7 +2116,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 294d7f5928e230c4bb51faf276dc7ab2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2180,7 +2212,7 @@ GameObject:
   - component: {fileID: 2143480294}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2197,6 +2229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48db1bb052210dd4d8281347cefccc9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  damageCooldown: 1
 --- !u!114 &2143480288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2209,6 +2242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d877438dcf01a045aa118b46102c8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  moveSpeed: 6
 --- !u!54 &2143480289
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2234,7 +2268,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &2143480290
 BoxCollider:
@@ -2282,7 +2316,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 1a8e8a4da1bf0404a97e9674202461b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2342,6 +2376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5784c9f50d21346a196ea38c46c859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
+  bulletSpawnPoint: {fileID: 953094335}
+  poolManager: {fileID: 793050816}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

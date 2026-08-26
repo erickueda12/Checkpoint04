@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1024998544649599667}
   - component: {fileID: 4814667887281135723}
   - component: {fileID: 7967183543431185531}
-  - component: {fileID: 5548514039338612204}
+  - component: {fileID: -5527789449157496400}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: acdf4baec973e6f4ab3e92a710b7e89d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -141,7 +141,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &5548514039338612204
+--- !u!114 &-5527789449157496400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,6 +150,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 731027340169366301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4dd221bb1d40964fbc343e2a639f0d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f898347bb6e869498e0586941848b79, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Bullet
+  m_EditorClassIdentifier: Assembly-CSharp::BulletMove
+  speed: 15
+  timeToReset: 3
+  enemyTag: Enemy

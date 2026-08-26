@@ -2,15 +2,34 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Transform bulletSpawnPoint;
+    [SerializeField] private PoolManager poolManager;
+
+    private void Update()
     {
-        
+        if (GameManager.Instance.machine.CurrentState != GameManager.Instance.playingState)
+            return;
+
+        Shoot();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Shoot()
     {
-        
+        if (!Input.GetKeyDown(KeyCode.Mouse0))
+            return;
+
+        GameObject bulletObject = poolManager.PooledGameObject();
+
+        if (bulletObject == null)
+            return;
+
+        bulletObject.transform.position = bulletSpawnPoint.position;
+        bulletObject.transform.rotation = bulletSpawnPoint.rotation;
+
+        bulletObject.SetActive(true);
+
+        BulletMove bullet = bulletObject.GetComponent<BulletMove>();
+
+        bullet.StartProjectile();
     }
 }
